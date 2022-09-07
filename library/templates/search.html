@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1 class>Books</h1>
+
+
+
+{% include 'search_bar.html' %}
+
+
+
+{% for book in book_list %}
+<section class="ui inverted segment padded">
+
+<form method="POST" action="{{ url_for('browser_bp.add_readlist') }}">
+  {{ add_form.csrf_token }}
+  {% if not book in read_list %}
+    {{ add_form.add_book(class="ui yellow button right floated") }}
+  {% else %}
+    {{ add_form.add_book(class="ui green button right floated", value="In List") }}
+  {% endif %}
+  {{ add_form.book_id(value=book.book_id) }}
+  {{ add_form.base_url(value=base_url) }}
+</form>
+
+  <a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}"><h3>{{ book.title }}</h3></a>
+  <p></p>
+    <img class="ui right aligned" src={{book.image}}>
+  <p>Book ID:&nbsp; {{ book.book_id }}</p>
+  <p>Release year:&nbsp; {{ book.release_year }}</p>
+  <p>Publisher name:&nbsp; {{ book.publisher.name }}</p>
+  <div>
+    {% if book.ebook == False %}
+
+    <p class="ui label red">Ebook: No</p>
+    {% else %}
+    <p class="ui label green">Ebook: Yes</p>
+    {% endif %}
+  </div>
+  <br />
+  {% for i in book.authors %}
+
+  <div class="ui horizontal list">
+    <a class="ui blue label">Author:&nbsp; {{ i.full_name }}</a>
+  </div>
+
+  {% endfor %}
+</section>
+
+{% endfor %} {% include 'pagination.html' %} {% endblock %}

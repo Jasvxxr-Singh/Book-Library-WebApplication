@@ -1,0 +1,34 @@
+{% extends 'layout.html' %} {% block content %}
+<section class="ui padded">
+  <a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}">
+    <i class="arrow left icon"></i> Back to {{ book.title }}
+    <h1 class="ui inverted header segment">{{ book.title }}</h1></a
+  >
+</section>
+{% if session['user_name'] %}
+<form class="ui inverted segment padded" method="POST" action="{{ url_for('browser_bp.reviews', book_id=book.book_id) }}">
+     {{ form.csrf_token }}
+    <p>{{ form.rating.label }}&ensp;{{ form.rating }}</p>
+     {{ form.review.label }}
+    <p>{{ form.review }}</p>
+    {% if form.review.errors %}
+    {% for error in form.review .errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+    {% endif %}
+    {{ form.submit }}
+</form>
+{% else %} You must be logged in to submit a review. {% endif %} {% for review
+in reviews %}
+<div class="ui segments padded">
+  <div class="ui inverted segment">
+    <i class="user icon"></i>&ensp;{{ review.user.user_name
+    }}&emsp;|&emsp;Rating:&ensp;{% for i in range(review.rating)%}
+    <i class="star icon"></i>{% endfor
+    %}&emsp;|&emsp;{{review.timestamp.strftime('%m/%d/%Y')}}
+  </div>
+  <div class="ui secondary segment padded">
+    <p>{{ review.review_text }}</p>
+  </div>
+</div>
+{% endfor %} {% endblock %}

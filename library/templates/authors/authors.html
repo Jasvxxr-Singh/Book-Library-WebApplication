@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h1>Authors</h1>
+<body class="author">
+
+
+<div class="ui black right floated button" onclick="location.href='{{ url_for(url_route, page_number=next_page) }}'"><i class="chevron right icon"></i></div>
+<div class="ui black left floated button" onclick="location.href='{{ url_for(url_route, page_number=prev_page) }}'"><i class="chevron left icon"></i></div>
+<div class="" >Showing {{ author_list|length + (20)*current_page }} of {{ total_authors }} results</div>
+<br>
+
+
+
+{% for author in author_list %}
+<div class="ui inverted segment ">
+{% if author in available_authors %}
+  <a class="ui blue label" href="#">{{author.full_name}}</a>
+  {% else %}
+  <p>{{author.full_name}}</p>
+  {% endif %}
+</div>
+{% endfor %}
+
+
+
+</body>
+<button class="ui black right floated button" onclick="location.href='{{ url_for(url_route, page_number=next_page) }}'"><i class="chevron right icon"></i></button>
+<button class="ui black left floated button" onclick="location.href='{{ url_for(url_route, page_number=prev_page) }}'"><i class="chevron left icon"></i></button>
+{% endblock %}

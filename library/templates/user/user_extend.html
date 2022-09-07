@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% block content %}
+<section class="ui inverted">
+
+<div class="ui card centered">
+  <div class="image">
+    <img src="{{url_for('static', filename='images/profilepic.png')}}">
+  </div>
+  <div class="content">
+      <p class="header">{{ user.user_name}} </p>  Num. Books read - {{ user.read_books | length}}
+  </div>
+</div>
+
+
+
+
+  {%  if user.read_books %}
+  <div class="ui inverted segment">
+      <h2 class="header">Books Read</h2>
+    {% for books in user.read_books%}
+      <br>
+      <a href="{{url_for('browser_bp.book_extend', book_id=books.book_id)}}"><h3 >{{books.title}}</h3></a>
+      <br>
+
+  {% endfor %}
+
+
+  </div>
+{% endif %}
+
+     {% if user.reviews %}
+    <p style="color: white">Reviews Submitted:</p>
+    <div class="ui inverted segment padded">
+        {% for review in user.reviews %}
+                {{ review.book.title}} |  Rating:&ensp;{% for i in range(review.rating)%}
+                <i class="star icon"></i>{% endfor %}
+        <div class="ui inverted secondary segment padded">
+            <p>{{ review.review_text }}</p>
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+    </section>
+{% endblock %}

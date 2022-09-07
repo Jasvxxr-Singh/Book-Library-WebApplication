@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block content %}
+<section class="ui padded">
+    <h1 class="ui inverted header segment">
+        {{ book.title }}
+    </h1>
+</section>
+
+        <p class="ui inverted segment "><b>Book ID:</b> {{ book.book_id}} </p>
+        <p class="ui inverted segment "><b>Release Year:</b> {{ book.release_year}}</p>
+        {% if book.ebook == False %}
+
+        <p class="ui inverted segment red">Ebook: No</p>
+        {% else %}
+        <p class="ui inverted segment green">Ebook: Yes</p>
+        {% endif %}
+
+        <p class="ui inverted segment "><b>Publisher:</b> {{ book.publisher.name}}</p>
+        <p class="ui inverted segment "><b>Description:</b> {{ book.description }}</p>
+        <section class="ui inverted segment"> <b>Author(s):</b>
+        {% for i in book.authors%}
+        <div class="ui horizontal list">
+        <a class="ui blue label ">{{ i.full_name }}</a>
+        </div>
+        {% endfor %}
+        </section>
+        <a class="ui inverted segment padded label yellow" href="{{ url_for('browser_bp.reviews', book_id=book.book_id) }}"> View Reviews</a>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'layout.html' %} {% block content %}
+<h1>Publishers</h1>
+<body class="publisher">
+  <div
+    class="ui black right floated button"
+    onclick="location.href='{{ url_for(url_route, page_number=next_page) }}'"
+  >
+    <i class="chevron right icon"></i>
+  </div>
+  <div
+    class="ui black left floated button"
+    onclick="location.href='{{ url_for(url_route, page_number=prev_page) }}'"
+  >
+    <i class="chevron left icon"></i>
+  </div>
+  <div class="ui label justify">
+    Showing {{ publisher_list|length + (5)*current_page }} of {{
+    total_publishers }} results
+  </div>
+
+  {% for publisher in publisher_list %}
+  <div class="ui inverted segment">
+    <p>{{ publisher.name }}</p>
+  </div>
+  {% endfor %}
+</body>
+<div
+  class="ui black right floated button"
+  onclick="location.href='{{ url_for(url_route, page_number=next_page) }}'"
+>
+  <i class="chevron right icon"></i>
+</div>
+<div
+  class="ui black left floated button"
+  onclick="location.href='{{ url_for(url_route, page_number=prev_page) }}'"
+>
+  <i class="chevron left icon"></i>
+</div>
+
+{% endblock %}

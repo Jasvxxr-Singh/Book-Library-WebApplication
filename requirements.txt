@@ -1,0 +1,9 @@
+pytest~=6.2.5
+Flask==1.1.4
+python-dotenv~=0.19.0
+flask-wtf==0.14.2
+Werkzeug==0.16.0
+WTForms~=2.3.3
+password-validator==1.0
+better-profanity==0.7.0
+SQLAlchemy==1.4.23

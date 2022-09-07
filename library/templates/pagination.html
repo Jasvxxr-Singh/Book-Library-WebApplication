@@ -1,0 +1,21 @@
+<div class="pagination">
+  <div class="ui inverted pagination menu">
+    <a class="item" href="{{ url_for(url_route, page_number=prev_page)}}"
+      ><i class="chevron left icon"></i
+    ></a>
+    {% for i in range(num_pages) %}
+    <a
+      class="item {{ 'active' if i == current_page }}"
+      href="{{ url_for(url_route, page_number=i)}}"
+      >{{i+1}}</a
+    >
+    {% endfor %}
+    <a class="item" href="{{ url_for(url_route, page_number=next_page)}}"
+      ><i class="chevron right icon"></i
+    ></a>
+  </div>
+  <div class="ui label justify">
+    Showing {{ book_list|length + (5)*current_page }} of {{ total_books }}
+    results
+  </div>
+</div>
